@@ -1,0 +1,136 @@
+@import "./mixins.scss";
+
+/* styles to presentation of start page */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  & .presentation {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+
+    width: 95%;
+    margin-top: 15px;
+  }
+
+  & .tratamientos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    padding: 15px 0;
+    width: 100%;
+    height: auto;
+    background-color: #000;
+    color: #fff;
+
+    & .area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px 0;
+      margin-bottom: 20px;
+      width: 95%;
+
+      transition: all 0.5s ease-out;
+
+      border: 1px solid #fff;
+      border-radius: 20px;
+      box-shadow: 3px 3px 10px #fff;
+
+      & h3 {
+        text-decoration: underline;
+        font-weight: bolder;
+        font-size: 1.25rem;
+      }
+
+      & ul {
+        margin: 0 auto;
+        text-align: left;
+        // width: 100%;
+        & li {
+          list-style: circle;
+          font-size: 1rem;
+        }
+      }
+
+      & a {
+        @include dark_button;
+
+        margin-top: 20px;
+
+        width: calc(100% - 50px);
+
+        text-align: center;
+      }
+    }
+  }
+
+  & .accesorios {
+    margin: 5px;
+
+    & .tipo {
+      @include border_dark;
+      @include flex-column;
+
+      margin-top: 10px;
+
+      height: 400px;
+
+      & h1 {
+        @include header_h1;
+      }
+
+      & a {
+        @include celeste_button;
+        @include contraer;
+
+        margin: 5px auto 0;
+        text-align: center;
+        transition: 0.3s ease-out all;
+
+        width: calc(100% - 200px);
+      }
+    }
+  }
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  padding: 10px;
+  color: white;
+
+  cursor: pointer;
+
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  background-color: aliceblue;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+@media screen and (min-width: 1024px) {
+  .container .tratamientos .area a {
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+
+    &:hover {
+      transform: scale(0.95);
+    }
+  }
+}
