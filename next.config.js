@@ -2,7 +2,6 @@ const path = require("path");
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   // webpack: (config, { isServer }) => {
   //   if (!isServer) {
   //     config.module.rules.push({
