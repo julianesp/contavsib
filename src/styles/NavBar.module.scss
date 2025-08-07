@@ -1,27 +1,21 @@
 .container {
   z-index: 100;
   position: fixed;
-
   display: flex;
   justify-content: space-between;
-
   align-items: center;
-  margin: 2.5px 0;
-  padding: 0;
-  /* padding: 3px 0; */
-
+  margin: 0;
+  padding: 0 20px;
   width: 100vw;
-  height: 55px;
-
+  height: 70px;
   top: 0px;
   left: 0px;
-
-  border: 1px solid #fff;
   border: none;
-  border-radius: 30px;
-  /* vista borrosa  */
-  backdrop-filter: blur(10px);
-  background-color: rgba(24, 28, 36, 0.6);
+  border-radius: 0;
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 20px rgba(30, 58, 138, 0.1);
+  border-bottom: 1px solid rgba(30, 58, 138, 0.1);
 }
 
 .container a {
@@ -56,28 +50,19 @@
 
 .container .enlaces__menu {
   position: relative;
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  /*posicionamiento vertical igual al despliegue*/
-  margin-top: 50px;
-
+  margin-top: 70px;
   top: 60%;
   left: -280px;
-
   height: 50vh;
-  width: 200px;
-
-  // border-radius: 20px;
-
-  /* background-color: rgba(255, 255, 255, 0.9); */
-
-  background-color: rgba(24, 28, 36, 0.9);
-
-  /* backdrop-filter: blur(4px); */
+  width: 250px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 40px rgba(30, 58, 138, 0.15);
+  border: 1px solid rgba(30, 58, 138, 0.1);
 }
 
 .container .enlaces__menu.open {
@@ -135,20 +120,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  color: #fff;
-  font-size: 1.3rem;
-  font-weight: 700;
-
+  color: var(--primary-blue);
+  font-size: 1.1rem;
+  font-weight: 600;
   text-decoration: none;
+  border: 1px solid rgba(30, 58, 138, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  width: 200px;
+  height: 45px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
 
-  border: 1px solid #fff;
-  /* background-color: #000; */
-  border-radius: 10px;
-
-  width: 190px;
-  height: 40px;
-  margin-bottom: 15px;
+  &:hover {
+    background: var(--gradient-primary);
+    color: white;
+    transform: translateX(10px);
+    box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+  }
 }
 
 .container .enlaces__menu a:hover {
@@ -177,23 +166,22 @@
 }
 
 .container .circle button > span {
-  /* background: #fff; */
-  background: #fff;
+  background: var(--primary-blue);
   height: 3px;
   width: 50%;
-  /* border-radius: 5px; */
+  border-radius: 2px;
   transition: all 0.5s;
   transform-origin: left;
 }
 
-.container .circle button:hover div:first-child {
+.container .circle button:hover span:first-child {
   transform: rotate(44deg);
 }
-.container .circle button:hover div:nth-child(2) {
+.container .circle button:hover span:nth-child(2) {
   opacity: 0;
 }
 
-.container .circle button:hover div:last-child {
+.container .circle button:hover span:last-child {
   transform: rotate(-44deg);
 }
 
@@ -201,9 +189,6 @@
 
 @media screen and (min-width: 1024px) {
   .container {
-    /* margin: 3px 25px 0; */
-    /* position: absolute; */
-
     width: 100vw;
 
     .circle {
@@ -211,41 +196,43 @@
     }
 
     .enlaces__menu.closed {
-      /* position: relative; */
-
-      display: inline;
-
-      /* flex-direction: row;
+      position: static;
+      display: flex;
+      flex-direction: row;
       justify-content: center;
-      align-items: center; */
-
+      align-items: center;
       gap: 0 20px;
-
       left: 9px;
-      /* top: 10px; */
-
+      top: 0;
+      margin-top: 0;
+      height: auto;
+      width: auto;
       background-color: transparent;
       border: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      animation: none;
     }
 
     .enlaces__menu a {
-      color: #000;
+      color: var(--primary-blue);
       font-size: 1.1rem;
-      padding: 10px 0;
+      font-weight: 600;
+      padding: 12px 20px;
+      margin: 0 15px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      width: auto;
+      height: auto;
+      transition: all 0.3s ease;
 
-      transition: 0.2s ease-in all;
-    }
-
-    .enlaces__menu a:hover {
-      color: #fff;
-      text-decoration: underline;
-      /* font-size: 1.05rem; */
-
-      /* font-weight: 700; */
-    }
-
-    .enlaces__menu.closed {
-      animation: none;
+      &:hover {
+        background: var(--gradient-primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+      }
     }
   }
 }

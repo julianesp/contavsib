@@ -3,21 +3,115 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colores principales para contaduría y finanzas públicas */
+  --primary-blue: #1e3a8a;        /* Azul institucional */
+  --secondary-blue: #3b82f6;      /* Azul secundario */
+  --accent-gold: #f59e0b;         /* Dorado profesional */
+  --light-gold: #fbbf24;          /* Dorado claro */
+  --dark-navy: #1e293b;           /* Azul marino oscuro */
+  --light-gray: #f8fafc;          /* Gris claro */
+  --medium-gray: #64748b;         /* Gris medio */
+  --white: #ffffff;
+  --text-dark: #0f172a;           /* Texto principal */
+  
+  /* Variables del sistema */
+  --background: var(--white);
+  --foreground: var(--text-dark);
+  
+  /* Gradientes profesionales */
+  --gradient-primary: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  --gradient-gold: linear-gradient(135deg, var(--accent-gold), var(--light-gold));
+  
+  /* Sombras profesionales */
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 12px rgba(30, 58, 138, 0.15);
+  --shadow-heavy: 0 8px 25px rgba(30, 58, 138, 0.2);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--dark-navy);
+    --foreground: var(--light-gray);
   }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* Estilos base para contaduría */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-blue);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+a {
+  color: var(--secondary-blue);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-gold);
+}
+
+/* Botones profesionales */
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-heavy);
+}
+
+.btn-secondary {
+  background: var(--gradient-gold);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Cards profesionales */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--shadow-light);
+  border: 1px solid rgba(30, 58, 138, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-5px);
 }
 
 @layer utilities {
