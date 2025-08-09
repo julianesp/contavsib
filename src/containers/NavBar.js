@@ -43,8 +43,8 @@ const NavBar = () => {
   if (!isLoaded) return null;
 
   return (
-    <div 
-      className={`${styles.container}`} 
+    <div
+      className={`${styles.container}`}
       ref={menuRef}
       role="navigation"
       aria-label="Navegación principal"

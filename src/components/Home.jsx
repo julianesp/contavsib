@@ -6,27 +6,67 @@ import styles from "../styles/Home.module.scss";
 import ImageSlider from "../containers/ImageSlider.js";
 import Head from "next/head.js";
 
+// Array constante fuera del componente para evitar recreaciones
+const IMAGE_TEXTS = [
+  "Auditoría Integral",
+  "Consultoría Presupuestal",
+  "Análisis Financiero",
+  "Asesoría Fiscal",
+  "Gestión Contable",
+];
+
 const Inicio = () => {
   // Solución para errores de hidratación
   const [isLoaded, setIsLoaded] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Todos los useEffect deben ir antes de cualquier return condicional
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  // Auto-play functionality
+  useEffect(() => {
+    let interval;
+    if (isLoaded && isPlaying && !isTransitioning) {
+      interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) =>
+          prevIndex === IMAGE_TEXTS.length - 1 ? 0 : prevIndex + 1
+        );
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [isLoaded, isPlaying, isTransitioning]);
+
   if (!isLoaded) return null;
 
-  const accesorios = [
-    {
-      d1: "https://firebasestorage.googleapis.com/v0/b/contavsib-b6b5e.appspot.com/o/images%2Fbusiness-962310_1280.jpg?alt=media&token=00b8d39d-bd71-42eb-97b6-703dc972dc21",
-    },
-    {
-      d2: "https://firebasestorage.googleapis.com/v0/b/contavsib-b6b5e.appspot.com/o/images%2Fcalculator-2359760_1280.jpg?alt=media&token=82e229b9-782a-493b-bab9-0e675df71bd3",
-    },
-    {
-      d3: "https://firebasestorage.googleapis.com/v0/b/contavsib-b6b5e.appspot.com/o/images%2Ffiling-cabinet-1205044_1280.jpg?alt=media&token=48f05771-718b-4647-be4d-23d6b77bfd5f",
-    },
-  ];
+  const handlePrevious = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === 0 ? IMAGE_TEXTS.length - 1 : prevIndex - 1
+      );
+      setIsTransitioning(false);
+    }, 250);
+  };
 
-  const imagePath = [accesorios[0].d1, accesorios[1].d2, accesorios[2].d3];
+  const handleNext = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === IMAGE_TEXTS.length - 1 ? 0 : prevIndex + 1
+      );
+      setIsTransitioning(false);
+    }, 250);
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
 
   return (
     <>
@@ -53,7 +93,65 @@ const Inicio = () => {
 
         {/* Sección de Presentación */}
         <section className={`mt-6 ${styles.presentation}`}>
-          <ImageSlider imagePaths={imagePath} enableTransition={true} />
+          <div className={styles.carouselContainer}>
+            {/* Controles Play/Pause */}
+            <div className={styles.playControls}>
+              <button
+                onClick={togglePlayPause}
+                className={styles.playPauseBtn}
+                disabled={isTransitioning}
+              >
+                {isPlaying ? "⏸️" : "▶️"}
+              </button>
+            </div>
+
+            {/* Imagen actual */}
+            <div
+              className={`${styles.imagePlaceholder} ${
+                isTransitioning ? styles.transitioning : ""
+              }`}
+            >
+              {IMAGE_TEXTS[currentImageIndex]}
+            </div>
+
+            {/* Botones de navegación */}
+            <button
+              onClick={handlePrevious}
+              className={`${styles.navButton} ${styles.prevButton} `}
+              disabled={isTransitioning}
+            >
+              <p>‹</p>
+            </button>
+            <button
+              onClick={handleNext}
+              className={`${styles.navButton} ${styles.nextButton}`}
+              disabled={isTransitioning}
+            >
+              <p>›</p>
+            </button>
+
+            {/* Indicadores */}
+            <div className={styles.indicators}>
+              {IMAGE_TEXTS.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (!isTransitioning) {
+                      setIsTransitioning(true);
+                      setTimeout(() => {
+                        setCurrentImageIndex(index);
+                        setIsTransitioning(false);
+                      }, 2500);
+                    }
+                  }}
+                  className={`${styles.indicator} ${
+                    index === currentImageIndex ? styles.active : ""
+                  }`}
+                  disabled={isTransitioning}
+                />
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* Sección de Servicios */}
